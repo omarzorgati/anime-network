@@ -5,29 +5,29 @@
         <i class="fa fa-angle-left"></i>
       </div>
     </div>
-    <img [src]="animeList[currentIndex].url" alt="">
+    <img [src]="Gallery[currentIndex].url" alt="">
     <div class="box">
       <div class="next cp" (click)="showNext()">
         <i class="fa fa-angle-right"></i>
       </div>
     </div>
     <div class="gallery-paginator">
-      <div *ngFor="let anime of animeList; let i = index" class="gallery-dots cp" [class.active]="i === currentIndex" (click)="currentIndex = i"></div>
+      <div *ngFor="let anime of Gallery; let i = index" class="gallery-dots cp" [class.active]="i === currentIndex" (click)="currentIndex = i"></div>
     </div>
   </div>
   <div class="Anime-Description">
     <div style="display: flex;flex-direction: row;gap: 1rem">
-      <div class="gender" *ngFor="let genre of animeList[currentIndex].gender">
+      <div class="gender" *ngFor="let genre of Gallery[currentIndex].gender">
         <span>{{ genre }}</span>
       </div>
     </div>
 
     <div class="anime-name">
-      <span>{{ animeList[currentIndex].name }}</span>
+      <span>{{ Gallery[currentIndex].name }}</span>
     </div>
 
     <div class="anime-sub-title">
-      <span>{{ animeList[currentIndex].subTitle }}</span>
+      <span>{{ Gallery[currentIndex].subTitle }}</span>
     </div>
 
     <div class="watch-now">
@@ -36,66 +36,143 @@
     </div>
   </div>
 
-  <div class="main-content">
-    <div class="trending">
-      <div class="header">
-        <div class="main-title">
-          <span>trending now</span>
+  <div class="body-content">
+    <div class="main-content">
+      <div class="trending">
+        <div class="header">
+          <div class="main-title">
+            <span>trending now</span>
+          </div>
+          <div class="view-all">
+            <span>view all</span>
+            <i class="fa fa-arrow-right-long"></i>
+          </div>
         </div>
-        <div class="view-all">
-          <span>view all</span>
-          <i class="fa fa-arrow-right-long"></i>
+        <div class="body">
+          <div class="card" *ngFor="let anime of animeList | slice:0:6">
+            <div class="rating">
+              <span>{{anime.ratings.length}}</span>
+            </div>
+            <div class="comments">
+              <i class="fa fa-comment"></i>
+              <span>{{anime.comments.length}}</span>
+            </div>
+            <img [src]="anime.image">
+            <div class="card-description">
+              <div class="information">
+                <div class="info">
+                  <span>Active</span>
+                </div>
+                <div class="info">
+                  <span>Anime</span>
+                </div>
+              </div>
+              <div class="title">
+                {{anime.name}}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="body">
-        <div class="card">
-          <img src="assets/images/booruti.jpg">
+      <div class="top-view">
+        <div class="header">
+          <div class="main-title">
+            <span>Top view</span>
+          </div>
+          <div class="view-all">
+            <span>view all</span>
+            <i class="fa fa-arrow-right-long"></i>
+          </div>
         </div>
-        <div class="card">
-          <img src="assets/images/naruto.jpg">
-        </div>
-        <div class="card">
-          <!--          <img class-->
-        </div>
-        <div class="card">
-          <!--          <img class-->
-        </div>
-        <div class="card">
-          <!--          <img class-->
-        </div>
-        <div class="card">
-          <!--          <img class-->
+        <div class="body">
+          <div class="card" *ngFor="let anime of BestFive |  slice:0:4">
+            <div class="title-container">
+            </div>
+            <div class="title">
+              <span>{{anime.name}}</span>
+            </div>
+            <div class="view">
+              <span><i class="fa fa-eye" style="padding-right: 0.5rem"></i> {{anime.opened}}</span>
+            </div>
+            <img [src]="anime.image">
+          </div>
         </div>
       </div>
     </div>
-    <div class="top-view">
-      <div class="header">
-        <div class="main-title">
-          <span>Top view</span>
+    <div class="second-content">
+      <div class="most-popular">
+        <div class="header">
+          <div class="main-title">
+            <span>Most Popular</span>
+          </div>
+          <div class="view-all">
+            <span>view all</span>
+            <i class="fa fa-arrow-right-long"></i>
+          </div>
         </div>
-        <div class="view-all">
-          <span>view all</span>
-          <i class="fa fa-arrow-right-long"></i>
+        <div class="body">
+          <div class="card">
+            <div class="rating">
+              <span>?/?</span>
+            </div>
+            <div class="comments">
+              <i class="fa fa-comment"></i>
+              <span>?</span>
+            </div>
+            <img src="assets/images/booruti.jpg">
+            <div class="card-description">
+              <div class="information">
+                <div class="info">
+                  <span>Active</span>
+                </div>
+                <div class="info">
+                  <span>Anime</span>
+                </div>
+              </div>
+              <div class="title">
+                Boruto : Naruto Next Generation
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="body">
-        <div class="card">
-          <img src="assets/images/naruto.jpg">
+      <div class="New-Comment">
+        <div class="header">
+          <div class="main-title">
+            <span>New Comment</span>
+          </div>
         </div>
-        <div class="card">
-          <!--          <img class-->
-        </div>
-        <div class="card">
-          <!--          <img class-->
-        </div>
-        <div class="card">
-          <!--          <img class-->
-        </div>
-        <div class="card">
-          <!--          <img class-->
-        </div>
-        <div class="card">
-          <!--          <img class-->
+        <div class="body">
+          <div class="commented-anime-information">
+            <div class="card">
+              <img src="assets/images/NS.jpeg">
+            </div>
+            <div class="informations">
+              <div class="row">
+                <div class="info">
+                  <span>Active</span>
+                </div>
+                <div class="info">
+                  <span>Anime</span>
+                </div>
+              </div>
+              <div class="anime-name">
+                <span>Naruto: Shippuden</span>
+              </div>
+            </div>
+          </div>
+
+<!--          <div class="card">-->
+<!--            <div class="title-container">-->
+<!--            </div>-->
+<!--            <div class="title">-->
+<!--              <span>Naruto: Shippuden</span>-->
+<!--            </div>-->
+<!--            <div class="rating">-->
+<!--              <span>?/?</span>-->
+<!--            </div>-->
+<!--            <img src="assets/images/naruto.jpg">-->
+<!--          </div>-->
         </div>
       </div>
     </div>
