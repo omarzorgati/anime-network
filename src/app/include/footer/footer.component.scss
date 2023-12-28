@@ -1,0 +1,17 @@
+.container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #070721;
+  align-items: center;
+  padding: 1.5rem 25rem;
+  font-family: 'Rubik', sans-serif;
+
+  img{
+    scale: 50%;
+  }
+
+  span{
+    color: #222632;
+  }
+}

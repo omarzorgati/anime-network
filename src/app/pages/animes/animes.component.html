@@ -1,0 +1,24 @@
+<div class="main">
+  <div class="main-content">
+    <!-- Breadcrumb Begin -->*
+    <div class="breadcrumb__links">
+      <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+      <i class="fa fa-angle-right"></i>
+      <a href="./categories.html">Categories</a>
+    </div>
+
+    <div class="body">
+      <div class="cat-an">
+        <div class="cat" *ngFor="let cat of Genders;">
+          <div class="header">
+            <div class="main-title cp" (click)="navigateToCategory(cat)">
+              <span>{{cat}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tp-viw">
+      </div>
+    </div>
+  </div>
+</div>

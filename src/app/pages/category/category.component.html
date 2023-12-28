@@ -1,0 +1,87 @@
+<div class="main">
+
+  <div class="main-content">
+
+    <div class="breadcrumb__links">
+      <span class="cp" (click)="NavigateTo('/home')"><i class="fa fa-home"></i> Home</span>
+      <i class="fa fa-angle-right"></i>
+      <span class="cp" (click)="NavigateTo('/categories')">Categories</span>
+      <i class="fa fa-angle-right"></i>
+      <span>{{selectedCategory}}</span>
+    </div>
+
+    <div class="body">
+      <div class="cat-an">
+        <div class="cat">
+          <div class="header">
+            <div class="main-title cp">
+              <span>{{selectedCategory}}</span>
+            </div>
+          </div>
+          <div class="animes">
+            <div class="card" *ngFor="let anime of animeList">
+              <div class="heart To-Fav cp" (click)="Heart(anime.id)" *ngIf="!isUserFavorited(anime.favoritedBy)">
+                <i class="fa fa-heart"></i>
+              </div>
+              <div class="heart OFF-Fav cp" (click)="Broke(anime.id)" *ngIf="isUserFavorited(anime.favoritedBy)">
+                <i class="fa fa-heart-crack"></i>
+              </div>
+              <div class="rating">
+                <span>{{anime.ratings.length}}</span>
+              </div>
+              <div class="comments">
+                <i class="fa fa-comment"></i>
+                <span>{{anime.comments.length}}</span>
+              </div>
+              <img [src]="anime.image">
+              <div class="card-description">
+                <div class="information">
+                  <div class="info">
+                    <span>Active</span>
+                  </div>
+                  <div class="info">
+                    <span>Anime</span>
+                  </div>
+                </div>
+                <div class="title">
+                  {{anime.name}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tp-viw">
+        <div class="section">
+          <div class="header">
+            <div class="main-title cp">
+              <span>Top view</span>
+            </div>
+          </div>
+          <div class="bdy">
+            <div class="card" *ngFor="let anime of BestFive |  slice:0:4">
+              <div class="title-container">
+              </div>
+              <div class="title">
+                <span>{{anime.name}}</span>
+              </div>
+              <div class="view">
+                <span><i class="fa fa-eye" style="padding-right: 0.5rem"></i> {{anime.opened}}</span>
+              </div>
+              <img [src]="anime.image">
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="header">
+            <div class="main-title cp">
+              <span>New Comment</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

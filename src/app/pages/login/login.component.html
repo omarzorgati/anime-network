@@ -1,0 +1,55 @@
+<div class="main">
+  <div class="page-header">
+    <img src="assets/images/Fate-anime.jpg">
+  </div>
+  <div class="Main-title">
+    <span>Login</span>
+    <span>Welcome to your favorite anime website</span>
+  </div>
+
+  <div class="container">
+    <div class="login">
+      <div class="section-title">
+        <span>Login</span>
+      </div>
+      <div class="form-group">
+        <div class="form-control">
+          <div class="icon">
+            <i class="fa fa-envelope"></i>
+          </div>
+          <input type="email" placeholder="Email address" [(ngModel)]="email"/>
+        </div>
+        <div class="form-control">
+          <div class="icon">
+            <i class="fa fa-lock"></i>
+          </div>
+          <input type="password" placeholder="Password" [(ngModel)]="password"/>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="cp" (click)="Login()">
+          {{!Loading?'Login now':''}}
+          <svg *ngIf="Loading" width="24" height="24" stroke="#fff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_V8m1{transform-origin:center;animation:spinner_zKoa 2s linear infinite}.spinner_V8m1 circle{stroke-linecap:round;animation:spinner_YpZS 1.5s ease-in-out infinite}@keyframes spinner_zKoa{100%{transform:rotate(360deg)}}@keyframes spinner_YpZS{0%{stroke-dasharray:0 150;stroke-dashoffset:0}47.5%{stroke-dasharray:42 150;stroke-dashoffset:-16}95%,100%{stroke-dasharray:42 150;stroke-dashoffset:-59}}</style><g class="spinner_V8m1"><circle cx="12" cy="12" r="9.5" fill="none" stroke-width="3"></circle></g></svg>
+        </button>
+        <span>Forgot Your Password?</span>
+      </div>
+    </div>
+    <div class="register">
+      <div class="section-title">
+        <span>Don't Have An Account?</span>
+      </div>
+      <div class="register-now">
+        <button (click)="RedirctTo('/register')">register now</button>
+      </div>
+      <div class="error" [ngClass]="{'created':msg ==='You have been created your account with success','warning':msg !='You have been created your account with success'}" *ngIf="msg!=''" [@slideInOut]>
+        <span>{{msg}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="back-top" *ngIf="showBackToTop" (click)="scrollToTop()">
+    <i class="fa-solid fa-angles-up"></i>
+  </div>
+
+</div>

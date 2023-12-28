@@ -1,4 +1,19 @@
 <div class="main">
+  <!-- alert box -->
+  <div class="alert" [ngClass]="{'added':added_to_fav,'removed':removed_from_fav}" *ngIf="added_to_fav || removed_from_fav" [@slideInOut]>
+    <div class="icon-box" [ngClass]="{'icon-box-green':added_to_fav,'icon-box-red':removed_from_fav}">
+      <i class="fa fa-times" [ngClass]="{'approved':added_to_fav,'red':removed_from_fav}"></i>
+    </div>
+    <div class="content">
+      <div class="title">
+        <strong>Success !</strong>
+      </div>
+      <div class="sub-title">
+        <span>Anime has been {{added_to_fav?'added':removed_from_fav?'removed':''}} to your favorite list with success</span>
+      </div>
+    </div>
+  </div>
+  <!-- end alert box -->
   <div class="gallery">
     <div class="box">
       <div class="prev cp" (click)="showPrev()">
@@ -35,7 +50,6 @@
       <button><i class="fa fa-angle-right"></i> </button>
     </div>
   </div>
-
   <div class="body-content">
     <div class="main-content">
       <div class="trending">
@@ -49,7 +63,13 @@
           </div>
         </div>
         <div class="body">
-          <div class="card" *ngFor="let anime of animeList | slice:0:6">
+          <div class="card" *ngFor="let anime of animeList">
+            <div class="heart To-Fav cp" (click)="Heart(anime.id)" *ngIf="!isUserFavorited(anime.favoritedBy)">
+              <i class="fa fa-heart"></i>
+            </div>
+            <div class="heart OFF-Fav cp" (click)="Broke(anime.id)" *ngIf="isUserFavorited(anime.favoritedBy)">
+              <i class="fa fa-heart-crack"></i>
+            </div>
             <div class="rating">
               <span>{{anime.ratings.length}}</span>
             </div>
@@ -161,18 +181,6 @@
               </div>
             </div>
           </div>
-
-<!--          <div class="card">-->
-<!--            <div class="title-container">-->
-<!--            </div>-->
-<!--            <div class="title">-->
-<!--              <span>Naruto: Shippuden</span>-->
-<!--            </div>-->
-<!--            <div class="rating">-->
-<!--              <span>?/?</span>-->
-<!--            </div>-->
-<!--            <img src="assets/images/naruto.jpg">-->
-<!--          </div>-->
         </div>
       </div>
     </div>
