@@ -80,6 +80,14 @@ export class HeaderComponent implements OnInit{
     this.UserMenu = false;
   }
 
+  isRoute(location: string): boolean {
+
+    const currentRoute = this.route.url;
+
+    return currentRoute === location;
+  }
+
+
 
 
 }

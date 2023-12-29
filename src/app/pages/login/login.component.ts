@@ -73,6 +73,7 @@ export class LoginComponent {
       (res) => {
         // this.UserId = res.id;
         localStorage.setItem('identification',res.id);
+        localStorage.setItem('username',res.username);
         this.msg = "You have been logged in successfully";
         this.clear();
         setTimeout(()=>{

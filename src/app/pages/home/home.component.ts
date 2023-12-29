@@ -141,6 +141,10 @@ export class HomeComponent implements OnInit{
     },2000)
   }
 
+  AnimeDetails(id:number){
+    this.router.navigate(['/anime', id]);
+  }
+
 
 
 

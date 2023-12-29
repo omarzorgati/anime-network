@@ -5,6 +5,7 @@ import {LoginComponent} from "./pages/login/login.component";
 import {RegisterComponent} from "./pages/register/register.component";
 import {AnimesComponent} from "./pages/animes/animes.component";
 import {CategoryComponent} from "./pages/category/category.component";
+import {AnimeDetailsComponent} from "./pages/anime-details/anime-details.component";
 
 const routes: Routes = [
   {
@@ -18,6 +19,9 @@ const routes: Routes = [
   },
   {
     path:'categories',component:AnimesComponent
+  },
+  {
+    path:'anime/:id',component:AnimeDetailsComponent
   },
   {
     path:'categories/:category',component:CategoryComponent

@@ -71,6 +71,14 @@ export class CategoryComponent implements OnInit {
     }
   }
 
+  Broke(animeId: any) {
+    const  UserId = parseInt(localStorage.getItem('identification')!);
+    this.http.delete(`http://localhost:8080/anime/${animeId}/favorite/${UserId}`).subscribe((res)=>{
+      this.getAnime();
+      this.no_fav_timer();
+    })
+  }
+
   isUserFavorited(favoritedBy: Users[]): boolean {
     // @ts-ignore
     return favoritedBy.some(user => user.id === this.UserId);
@@ -91,13 +99,7 @@ export class CategoryComponent implements OnInit {
     },2000)
   }
 
-  Broke(animeId: any) {
-    const  UserId = parseInt(localStorage.getItem('identification')!);
-    this.http.delete(`http://localhost:8080/anime/${animeId}/favorite/${UserId}`).subscribe((res)=>{
-      this.getAnime();
-      this.no_fav_timer();
-    })
-  }
+
 
 
 }

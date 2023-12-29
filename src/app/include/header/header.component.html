@@ -1,9 +1,9 @@
 <div class="container">
     <img src="assets/images/Anime-Logo.png">
     <div class="items">
-      <span class="active" (click)="RedirectTo('/home')">Home</span>
-      <span (click)="RedirectTo('/categories')">Categories</span>
-      <span (click)="RedirectTo('/contacts')">Contacts</span>
+      <span (click)="RedirectTo('/home')" [ngClass]="{'active':isRoute('/home')}">Home</span>
+      <span (click)="RedirectTo('/categories')"  [ngClass]="{'active':isRoute('/categories')}">Categories</span>
+      <span (click)="RedirectTo('/contacts')"  [ngClass]="{'active':isRoute('/contacts')}">Contacts</span>
     </div>
     <div class="others">
       <input type="text" placeholder="Type here to search your anime ..." *ngIf="search">

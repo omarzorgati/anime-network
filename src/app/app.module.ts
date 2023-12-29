@@ -14,6 +14,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import {FormsModule} from "@angular/forms";
 import { AnimesComponent } from './pages/animes/animes.component';
 import { CategoryComponent } from './pages/category/category.component';
+import { AnimeDetailsComponent } from './pages/anime-details/anime-details.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CategoryComponent } from './pages/category/category.component';
     LoginComponent,
     RegisterComponent,
     AnimesComponent,
-    CategoryComponent
+    CategoryComponent,
+    AnimeDetailsComponent
   ],
   imports: [
     BrowserModule,

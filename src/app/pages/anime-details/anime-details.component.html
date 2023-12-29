@@ -1,0 +1,139 @@
+<div class="main">
+
+  <div class="main-content">
+
+    <div class="breadcrumb__links">
+      <span class="cp" (click)="NavigateTo('/home')"><i class="fa fa-home"></i> Home</span>
+      <i class="fa fa-angle-right"></i>
+      <span class="cp" (click)="NavigateTo('/categories')">Categories</span>
+      <i class="fa fa-angle-right"></i>
+      <span>anime</span>
+      <i class="fa fa-angle-right"></i>
+      <span *ngIf="selectedAnime">{{selectedAnime.name}}</span>
+    </div>
+
+    <div class="main-container">
+      <div class="anime-description">
+          <div class="anime-img">
+            <img src="{{selectedAnime.image}}" alt="">
+          </div>
+        <div class="main-description-container">
+          <div class="header">
+            <div class="title">
+              <span>{{selectedAnime.name}}</span>
+              <span class="lsp">{{JapaneseText}}</span>
+            </div>
+            <div class="rating">
+              <div class="stars">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </div>
+              <span>1.029 Votes</span>
+            </div>
+          </div>
+          <div class="anime-description">
+            <span>{{selectedAnime.description}}</span>
+          </div>
+          <div class="others">
+            <ul>
+              <li>
+                <div><span>Type:</span></div>
+                <div><span>Anime</span></div>
+              </li>
+              <li>
+                <div><span>Studios:</span></div>
+                <div><span>Lerche</span></div>
+              </li>
+              <li>
+                <div><span>Gender:</span></div>
+                <div id="gender"><span *ngFor="let genre of selectedAnime.genders">{{genre}}</span></div>
+              </li>
+            </ul>
+
+            <ul>
+              <li>
+                <div><span>Views:</span></div>
+                <div><span>{{selectedAnime.opened}} times</span></div>
+              </li>
+              <li>
+                <div><span>Rating:</span></div>
+                <div><span>8.5 / 161 times</span></div>
+              </li>
+              <li>
+                <div><span>Quality</span></div>
+                <div><span>HD</span></div>
+              </li>
+            </ul>
+          </div>
+          <div class="buttons">
+            <button [ngClass]="{'putofav':!isUserFavorited(selectedAnime.favoritedBy),'removefromfav':isUserFavorited(selectedAnime.favoritedBy)}" (click)="isUserFavorited(selectedAnime.favoritedBy)?Broke(selectedAnime.id):Heart(selectedAnime.id)">
+              {{isUserFavorited(selectedAnime.favoritedBy)?'Unfollow':'Follow'}}
+            </button>
+            <div class="watch-now">
+              <button>Watch Now</button>
+              <button><i class="fa fa-angle-right"></i> </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="cat-an">
+          <div class="cat">
+            <div class="header">
+              <div class="main-title cp">
+                <span>Review</span>
+              </div>
+            </div>
+            <div class="comments">
+              <div class="comment" *ngFor="let r of reviews">
+                <div class="avatar">
+                  {{getFirstLetter(r.username)}}
+                </div>
+                <div class="comment-description">
+                  <span>{{UserId === r.userId ? 'Me' : username}}</span>
+                  <span>{{r.comment}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="your-review">
+            <div class="header">
+              <div class="main-title cp">
+                <span>Your Comment</span>
+              </div>
+            </div>
+            <div class="my-review">
+              <textarea placeholder="Your comment" [(ngModel)]="Comment"></textarea>
+              <button class="cp" (click)="PostComment(selectedAnime.id)"><i class="fa fa-paper-plane"></i> review </button>
+            </div>
+          </div>
+        </div>
+        <div class="tp-viw">
+          <div class="section">
+            <div class="header">
+              <div class="main-title cp">
+                <span>YOU MIGHT LIKE...</span>
+              </div>
+            </div>
+            <div class="bdy">
+              <div class="card" *ngFor="let anime of BestFive |  slice:0:4">
+                <div class="title-container">
+                </div>
+                <div class="title">
+                  <span>{{anime.name}}</span>
+                </div>
+                <div class="view">
+                  <span><i class="fa fa-eye" style="padding-right: 0.5rem"></i> {{anime.opened}}</span>
+                </div>
+                <img [src]="anime.image">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

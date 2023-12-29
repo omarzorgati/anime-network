@@ -77,7 +77,7 @@
               <i class="fa fa-comment"></i>
               <span>{{anime.comments.length}}</span>
             </div>
-            <img [src]="anime.image">
+            <img class="cp" [src]="anime.image" (click)="AnimeDetails(anime.id)" alt="Photo">
             <div class="card-description">
               <div class="information">
                 <div class="info">
