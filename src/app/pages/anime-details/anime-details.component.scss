@@ -4,6 +4,53 @@
   width: 100%;
   font-family: 'Rubik', sans-serif;
 
+  .select-status-container{
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .select-status-card{
+      display: flex;
+      flex-direction: column;
+      background: white;
+      width: 30rem;
+      height: auto;
+      padding: 1rem 2rem;
+      gap: 1rem;
+      div{
+        max-width: 20rem;
+        label{
+          font-size: 17px;
+        }
+      }
+      select{
+        padding: 1rem ;
+        font-size: 14px;
+        outline: none;
+      }
+
+      button{
+        padding: 1rem 1rem;
+        border: none;
+        border-radius: 0.5rem;
+      }
+      button:nth-child(3){
+        background: #0b0c2b;
+        color: white;
+      }
+      button:nth-child(4){
+        background: #e83531;
+        color: white;
+      }
+    }
+  }
+
   .main-content {
     padding: 2rem 17rem;
 
@@ -154,6 +201,27 @@
               }
               button:nth-child(2){
                 padding: 1rem 0.5rem;
+                margin-right: 1rem;
+              }
+              button:nth-child(3){
+                border-right: 2px solid #fff;
+
+              }
+              button:nth-child(4){
+                margin-left: 1rem;
+                padding: 1rem 2rem;
+                background: #e89f12 !important;
+              }
+              select{
+                padding: 1rem 2rem;
+                border: none;
+                background: transparent;
+                color: white;
+                outline: none;
+                option{
+                  background: #0b0c2b;
+                }
+                option:not(:checked) { color: white; }
               }
             }
           }

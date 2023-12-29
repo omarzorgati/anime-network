@@ -14,6 +14,24 @@
     </div>
   </div>
   <!-- end alert box -->
+
+  <div class="select-status-container" *ngIf="model">
+
+    <div class="select-status-card">
+      <div>
+        <label>Select Status</label>
+      </div>
+      <select [(ngModel)]="Selected_Status">
+        <option selected disabled>Select a status</option>
+        <option>Completed</option>
+        <option>Wish List</option>
+        <option>Watching</option>
+      </select>
+      <button class="cp" (click)="SaveStatus(AnimeId)">Save</button>
+      <button class="cp" (click)="CloseModel()">Cancel</button>
+    </div>
+
+  </div>
   <div class="gallery">
     <div class="box">
       <div class="prev cp" (click)="showPrev()">

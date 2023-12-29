@@ -2,6 +2,22 @@
 
   <div class="main-content">
 
+
+    <div class="select-status-container" *ngIf="Dialog">
+
+      <div class="select-status-card">
+        <div style="display:flex;flex-direction: column;justify-content: center;gap: 1rem;padding: 1rem 4rem">
+          <ngx-star-rating [(ngModel)]="rating3" [id]="'rating'"></ngx-star-rating>
+<!--          <div>Rating: {{form.value.rating}}</div>-->
+<!--          <p>form is valid: {{ form.valid ? 'true' : 'false' }}</p>-->
+
+          <button class="cp" (click)="updateRating()">Send</button>
+          <button class="cp" (click)="ToggleDialog()">Cancel</button>
+        </div>
+      </div>
+
+    </div>
+
     <div class="breadcrumb__links">
       <span class="cp" (click)="NavigateTo('/home')"><i class="fa fa-home"></i> Home</span>
       <i class="fa fa-angle-right"></i>
@@ -25,13 +41,9 @@
             </div>
             <div class="rating">
               <div class="stars">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
+                <ngx-star-rating [(ngModel)]="avg" [id]="'rating'" [disabled]="true"></ngx-star-rating>
               </div>
-              <span>1.029 Votes</span>
+              <span>{{count}} Votes</span>
             </div>
           </div>
           <div class="anime-description">
@@ -60,7 +72,7 @@
               </li>
               <li>
                 <div><span>Rating:</span></div>
-                <div><span>8.5 / 161 times</span></div>
+                <div><span>{{avg}} / {{count}} times</span></div>
               </li>
               <li>
                 <div><span>Quality</span></div>
@@ -73,8 +85,15 @@
               {{isUserFavorited(selectedAnime.favoritedBy)?'Unfollow':'Follow'}}
             </button>
             <div class="watch-now">
-              <button>Watch Now</button>
-              <button><i class="fa fa-angle-right"></i> </button>
+              <button class="cp">Watch Now</button>
+              <button class="cp"><i class="fa fa-angle-right"></i> </button>
+              <button></button>
+              <button class="cp" (click)="ToggleDialog()">Rate now</button>
+              <select [(ngModel)]="AnimeStatus" (ngModelChange)="onStatusChange()">
+                <option>Completed</option>
+                <option>Wish List</option>
+                <option>Watching</option>
+              </select>
             </div>
           </div>
         </div>

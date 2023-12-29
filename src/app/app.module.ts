@@ -11,11 +11,11 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { FooterComponent } from './include/footer/footer.component';
 import {LoginComponent} from "./pages/login/login.component";
 import { RegisterComponent } from './pages/register/register.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { AnimesComponent } from './pages/animes/animes.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { AnimeDetailsComponent } from './pages/anime-details/anime-details.component';
-
+import { NgxStarRatingModule } from 'ngx-star-rating';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +34,9 @@ import { AnimeDetailsComponent } from './pages/anime-details/anime-details.compo
     HttpClientModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    NgxStarRatingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

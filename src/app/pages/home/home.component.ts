@@ -39,11 +39,16 @@ export class HomeComponent implements OnInit{
   animeList: Anime[] = [];
   BestFive: Anime[] = [];
 
+  model:boolean = false;
 
   added_to_fav:boolean = false;
 
   removed_from_fav:boolean = false;
   UserId:number = -1;
+
+  Selected_Status:string = "";
+
+  AnimeId:number  = -1;
 
   Gallery: AnimeGallery[] = [
     {
@@ -94,7 +99,11 @@ export class HomeComponent implements OnInit{
     });
   }
 
+
+
   Heart(animeId: any) {
+    this.checkModalStatus(animeId);
+    this.AnimeId = animeId;
     if (localStorage.getItem('identification')) {
       const  UserId = parseInt(localStorage.getItem('identification')!);
       this.http.post(`http://localhost:8080/anime/${animeId}/favorite/${UserId}`,null).subscribe((res)=>{
@@ -104,6 +113,14 @@ export class HomeComponent implements OnInit{
     } else {
       this.router.navigate(['/login'])
     }
+  }
+
+  checkModalStatus(animeId: any){
+      this.http.get<boolean>(`http://localhost:8080/anime/${animeId}/modal-status/${this.UserId}`).subscribe((status) => {
+          if (!status) {
+              this.model = true;
+          }
+      });
   }
 
   Broke(animeId: any) {
@@ -147,9 +164,26 @@ export class HomeComponent implements OnInit{
 
 
 
+  CloseModel(){
+    this.model = false;
+    this.AnimeId = -1;
+  }
 
+    SaveStatus(animeId: any) {
+        if (this.Selected_Status !== "" && this.Selected_Status !== "Select a status") {
+            const Data = {
+                animeId: animeId,
+                userId: this.UserId,
+                status: this.Selected_Status,
+            };
 
+            this.http.post("http://localhost:8080/Status/add", Data).subscribe((res) => {
+                // Handle the response if needed
+            });
 
-
-
+            this.model = false;
+        } else {
+            console.log("Error");
+        }
+    }
 }

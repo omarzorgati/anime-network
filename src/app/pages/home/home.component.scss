@@ -44,6 +44,52 @@
     }
   }
 
+  .select-status-container{
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .select-status-card{
+      display: flex;
+      flex-direction: column;
+      background: white;
+      width: 30rem;
+      height: auto;
+      padding: 1rem 2rem;
+      gap: 1rem;
+      div{
+        max-width: 20rem;
+        label{
+          font-size: 17px;
+        }
+      }
+      select{
+        padding: 1rem ;
+        font-size: 14px;
+        outline: none;
+      }
+
+      button{
+        padding: 1rem 1rem;
+        border: none;
+        border-radius: 0.5rem;
+      }
+      button:nth-child(3){
+        background: #0b0c2b;
+        color: white;
+      }
+      button:nth-child(4){
+        background: #e83531;
+        color: white;
+      }
+    }
+  }
+
   .added{
     //border:1px solid #1e7351;
     box-shadow: #1e7351 0 3px 8px;

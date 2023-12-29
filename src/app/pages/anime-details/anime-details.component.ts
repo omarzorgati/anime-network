@@ -5,6 +5,9 @@ import {Anime} from "../../interfaces/anime";
 import {Users} from "../../interfaces/users";
 import {JapaneseTextGenerator} from "../../entities/japanese-text-generator";
 import {Review} from "../../interfaces/review";
+import {Status} from "../../interfaces/status";
+import { NgxStarRatingModule } from 'ngx-star-rating';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-anime-details',
@@ -12,6 +15,8 @@ import {Review} from "../../interfaces/review";
   styleUrls: ['./anime-details.component.scss']
 })
 export class AnimeDetailsComponent implements OnInit{
+
+  public form!: FormGroup;
 
   selectedAnime!:Anime;
   AnimeId!:number;
@@ -27,22 +32,61 @@ export class AnimeDetailsComponent implements OnInit{
   reviews: Review[] = [];
 
 
-  constructor(private router:Router,private http:HttpClient,private route: ActivatedRoute) {
+  AnimeStatus:string = "";
+
+
+  Status!:Status;
+
+
+  rating3:number;
+
+  Dialog:boolean = false;
+
+  avg: number = 0;
+  count:number = 0;
+
+
+  constructor(private router:Router,private http:HttpClient,private route: ActivatedRoute,private fb: FormBuilder) {
     this.GetAnimeId();
     this.GetUserId();
     this.LoadUsername();
+
+    this.rating3 = 0;
+
   }
   ngOnInit() {
     this.GetAnimeById();
     this.Genreate();
     this.getBestFive();
     this.GetCommentsByAnimeId(this.AnimeId);
+    this.GetCurrentStat(this.AnimeId,this.UserId);
+    this.increase(this.AnimeId);
+    this.Count(this.AnimeId);
+    this.Avg(this.AnimeId);
 
   }
 
   getBestFive(){
     this.http.get<Anime[]>("http://localhost:8080/anime/top5").subscribe((res: Anime[]) => {
       this.BestFive = res;
+    });
+  }
+
+  Count(id:any){
+    this.http.get(`http://localhost:8080/Status/count/${id}`).subscribe((res:any)=>{
+      this.count = res;
+    });
+  }
+
+  Avg(id:any){
+    this.http.get(`http://localhost:8080/Status/average-rating/${id}`).subscribe((res:any)=>{
+      this.avg = res;
+    });
+  }
+
+  increase(animeId:number){
+    this.http.post(`http://localhost:8080/anime/increaseOpened/${animeId}`,null).subscribe((res)=>{
+      this.GetAnimeId();
     });
   }
 
@@ -145,6 +189,47 @@ export class AnimeDetailsComponent implements OnInit{
     }
   }
 
+  GetCurrentStat(animeId:number,userId:number){
+    this.http.get(`http://localhost:8080/Status/get/${animeId}/${userId}`).subscribe((res:any)=>{
+      this.AnimeStatus = res.status;
+    })
+  }
+
+  onStatusChange() {
+    const selectedStatus = this.AnimeStatus;
+    if (selectedStatus && this.AnimeId && this.UserId) {
+      const updateRequest = {
+        newStatus: selectedStatus,
+        newRating: null,
+      };
+      this.http.put(`http://localhost:8080/Status/update/user?userId=${this.UserId}&animeId=${this.AnimeId}`, updateRequest)
+          .subscribe(response => {
+            console.log('Status updated successfully:', response);
+          }, error => {
+            console.error('Error updating status:', error);
+          });
+    }
+  }
+
+  ToggleDialog(){
+    this.Dialog = !this.Dialog;
+  }
+
+  updateRating(){
+    const selectedStatus = this.AnimeStatus;
+    if (selectedStatus && this.AnimeId && this.UserId) {
+      const updateRequest = {
+        newStatus: selectedStatus,
+        newRating: this.rating3,
+      };
+      this.http.put(`http://localhost:8080/Status/update/user?userId=${this.UserId}&animeId=${this.AnimeId}`, updateRequest)
+          .subscribe(response => {
+            console.log('Status updated successfully:', response);
+          }, error => {
+            console.error('Error updating status:', error);
+          });
+    }
+  }
 
 
 
