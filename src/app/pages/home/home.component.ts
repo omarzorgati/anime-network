@@ -102,7 +102,8 @@ export class HomeComponent implements OnInit{
 
 
   Heart(animeId: any) {
-    this.checkModalStatus(animeId);
+    // this.checkModalStatus(animeId);
+    this.model = true;
     this.AnimeId = animeId;
     if (localStorage.getItem('identification')) {
       const  UserId = parseInt(localStorage.getItem('identification')!);
@@ -115,13 +116,13 @@ export class HomeComponent implements OnInit{
     }
   }
 
-  checkModalStatus(animeId: any){
-      this.http.get<boolean>(`http://localhost:8080/anime/${animeId}/modal-status/${this.UserId}`).subscribe((status) => {
-          if (!status) {
-              this.model = true;
-          }
-      });
-  }
+  // checkModalStatus(animeId: any){
+  //     this.http.get<boolean>(`http://localhost:8080/anime/${animeId}/modal-status/${this.UserId}`).subscribe((status) => {
+  //         if (!status) {
+  //             this.model = true;
+  //         }
+  //     });
+  // }
 
   Broke(animeId: any) {
     const  UserId = parseInt(localStorage.getItem('identification')!);
