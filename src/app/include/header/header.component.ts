@@ -87,6 +87,11 @@ export class HeaderComponent implements OnInit{
     return currentRoute === location;
   }
 
+  hasAdminInRoute(): boolean {
+    const currentRoute = this.route.url.toLowerCase(); // Ensure case-insensitivity
+    return currentRoute.includes('admin');
+  }
+
 
 
 

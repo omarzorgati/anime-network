@@ -16,6 +16,7 @@ import { AnimesComponent } from './pages/animes/animes.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { AnimeDetailsComponent } from './pages/anime-details/anime-details.component';
 import { NgxStarRatingModule } from 'ngx-star-rating';
+import { ManageUserComponent } from './Admin/manage-user/manage-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,8 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
     RegisterComponent,
     AnimesComponent,
     CategoryComponent,
-    AnimeDetailsComponent
+    AnimeDetailsComponent,
+    ManageUserComponent
   ],
   imports: [
     BrowserModule,

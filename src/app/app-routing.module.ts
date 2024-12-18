@@ -6,6 +6,7 @@ import {RegisterComponent} from "./pages/register/register.component";
 import {AnimesComponent} from "./pages/animes/animes.component";
 import {CategoryComponent} from "./pages/category/category.component";
 import {AnimeDetailsComponent} from "./pages/anime-details/anime-details.component";
+import { ManageUserComponent } from './Admin/manage-user/manage-user.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,9 @@ const routes: Routes = [
   },
   {
     path:'categories/:category',component:CategoryComponent
+  },
+  {
+    path:'Admin/Manage/User',component:ManageUserComponent
   },
   {
     path:'**',redirectTo:'home'
