@@ -1,33 +1,43 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {CatService} from "../../services/cat.service";
+import {GlobalVariables} from "../../global-variables";
 
 @Component({
   selector: 'app-animes',
   templateUrl: './animes.component.html',
   styleUrls: ['./animes.component.scss']
 })
-export class AnimesComponent implements OnInit{
+export class AnimesComponent{
 
-  Genders : string[] = [];
+  paginatedclient: any = {size: 20, nb_data: 0, page: -1, data: [], pages: 1}
 
-  constructor(private http:HttpClient,private router:Router) {
+  constructor(
+    private dialog: MatDialog,
+    private user_service: CatService,
+    private router: Router,
+    private glovar: GlobalVariables) {
+    this.get_all(0)
   }
 
-  ngOnInit() {
-    this.Categories();
+  get_all(page: any) {
+    this.user_service.all_cat(this.paginatedclient.size, page).then((res) => {
+      this.paginatedclient.nb_data = res.totalElements
+      this.paginatedclient.page = res.number
+      this.paginatedclient.pages = res.totalPages
+      this.paginatedclient.data = res.content
+    }).finally(() => {
+    })
   }
 
-
-  Categories(){
-    this.http.get("http://localhost:8080/anime/all-genres").subscribe((res:any)=>{
-      this.Genders = res;
-      console.log(this.Genders);
-    });
+  onClientPageChange(e: any) {
+    this.get_all(e.page)
   }
 
-  navigateToCategory(category: string) {
-    this.router.navigate(['/categories', category]);
+  navigateToCategory(category: any) {
+    this.router.navigate(['/categories/'+category.name]);
   }
 
 

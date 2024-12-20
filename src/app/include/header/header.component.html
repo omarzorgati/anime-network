@@ -3,7 +3,6 @@
     <div class="items" *ngIf="!hasAdminInRoute()">
       <span (click)="RedirectTo('/home')" [ngClass]="{'active':isRoute('/home')}">Home</span>
       <span (click)="RedirectTo('/categories')"  [ngClass]="{'active':isRoute('/categories')}">Categories</span>
-      <span (click)="RedirectTo('/contacts')"  [ngClass]="{'active':isRoute('/contacts')}">Contacts</span>
     </div>
     <div class="items" *ngIf="hasAdminInRoute()">
       <div class="admin-indicator">
@@ -13,11 +12,10 @@
     <div class="others">
       <input type="text" placeholder="Type here to search your anime ..." *ngIf="search">
       <i class="fa fa-search cp" (click)="Search()"></i>
-      <i class="fa fa-user cp" (click)="ToggleUserMenu()"></i>
+      <i class="fa fa-user cp" *ngIf="CurrentUser" (click)="ToggleUserMenu()"></i>
       <div class="drop-down-menu" *ngIf="UserMenu" [@slideInOut]>
-        <span *ngIf="UserId!=''">Welcome <span>{{username}}</span></span>
-        <span *ngIf="UserId===''">Welcome Visitor</span>
-        <button (click)="UserId===''?RedirectTo('/login'):Signout()">{{UserId === ''?'Login':'Sign Out'}}</button>
+        <span>Welcome <span>{{CurrentUser.firstname}}</span></span>
+        <button (click)="Signout()">{{'Sign Out'}}</button>
       </div>
     </div>
 </div>

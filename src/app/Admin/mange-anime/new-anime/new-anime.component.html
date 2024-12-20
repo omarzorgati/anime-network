@@ -1,0 +1,37 @@
+<div class="card anime-form">
+  <h2 class="form-title">Add New Anime</h2>
+  <p>
+    Fill in the details below to add a new anime to the list.
+  </p>
+  <hr>
+  <div class="fxColumn gapping" matDialogContent>
+    <div class="fxColumn gapping">
+      <input type="text" [(ngModel)]="title" placeholder="Enter Anime Title">
+      <textarea [(ngModel)]="description" placeholder="Enter Description"></textarea>
+      <input type="text" [(ngModel)]="author" placeholder="Enter Author Name">
+      <input type="number" [(ngModel)]="seasonNumber" placeholder="Enter Season Number">
+      <select [(ngModel)]="season">
+        <option value="SPRING">Spring</option>
+        <option value="SUMMER">Summer</option>
+        <option value="FALL">Fall</option>
+        <option value="WINTER">Winter</option>
+      </select>
+      <select [(ngModel)]="type">
+        <option value="TV">TV</option>
+        <option value="MOVIE">Movie</option>
+        <option value="OVA">OVA</option>
+        <option value="ONA">ONA</option>
+      </select>
+      <input type="datetime-local" [(ngModel)]="releaseDate" placeholder="Select Release Date">
+      <select [(ngModel)]="status">
+        <option value="AIRING">Airing</option>
+        <option value="FINISHED">Finished</option>
+        <option value="UPCOMING">Upcoming</option>
+      </select>
+      <input type="text" [(ngModel)]="categoryNames" placeholder="Enter Categories (comma-separated)">
+    </div>
+  </div>
+  <div class="w-100 gapping fxColumn">
+    <button class="btn" (click)="Add()">Add</button>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="admin-container">
+  <div class="cards">
+    <div class="card" *ngFor="let card of navItems" [routerLink]="card.route">
+      <i [class]="card.icon" class="fa-3x"></i>
+      <span>{{ card.label }}</span>
+    </div>
+  </div>
+</div>

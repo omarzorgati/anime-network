@@ -1,0 +1,157 @@
+.card {
+  max-width: 500px;
+  min-width: 500px;
+  //width: 100%;
+  padding: 40px;
+  border-radius: 12px;
+  background-color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.mobile-broadband {
+  border: 1px solid var(--color1);
+}
+
+.icon {
+  font-size: 40px;
+  padding: 15px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-broadband .icon {
+  background-color: var(--color1);
+  color: #fff;
+  height: 74px;
+  width: 74px;
+}
+
+
+.card h2 {
+  font-size: 22px;
+  font-family: "Merriweather", serif;
+  font-weight: 900;
+  color: #121f38;
+  margin: 15px 0;
+}
+
+.card p {
+  font-size: 16px;
+  color: #4a4a4a;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+.btn {
+  font-size: 16px;
+  padding: 12px 24px;
+  border: 1px solid #0b0c2b;
+  border-radius: 7px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mobile-broadband .btn {
+  background-color: rgba(49, 49, 122, 0.05);
+  color: var(--color1);
+}
+
+.tv-broadband .btn {
+  background-color: #edf4ff;
+  color: #1b65d6;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.mobile-broadband .btn:hover {
+  background-color: rgba(49, 49, 122, 1);
+  color: #fff;
+}
+
+
+.mobile-broadband p,
+.tv-broadband p {
+  width: 100%;
+  max-width: 270px;
+  margin: 20px auto;
+}
+
+@media (max-width: 860px) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 780px) {
+  body {
+    height: auto;
+    padding: 20px;
+  }
+
+  .container {
+    flex-direction: column;
+    margin: 20px auto;
+  }
+
+  .card {
+    padding: 20px;
+    max-width: 100%;
+    width: auto;
+  }
+}
+
+p-multiSelect {
+  border: 1px solid #e8eef3 !important;
+  border-radius: 0 !important;
+}
+
+
+::ng-deep {
+  .p-calendar .p-datepicker {
+    top: 100%;
+    transform: translateY(-100%);
+  }
+
+  .p-datepicker-header{
+    html[data-lang='ar'] {
+      display: flex;
+      flex-direction: row-reverse;
+    }
+  }
+
+  .p-datepicker .p-datepicker-header .p-datepicker-title {
+    display: flex;
+    column-gap: 1rem;
+    button{
+      background:var(--color1);
+      color:white !important;
+    }
+  }
+  .p-datepicker table{
+    thead{
+      tr{
+        th{
+          text-align:center!important;
+        }
+      }
+    }
+  }
+}
+
+
+input,textarea,select{
+  margin:1rem 0;
+  border:1px solid #e83531;
+  padding:1rem 2rem;
+  &:focus{
+    outline: none;
+  }
+}

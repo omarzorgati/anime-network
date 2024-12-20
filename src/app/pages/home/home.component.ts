@@ -88,15 +88,15 @@ export class HomeComponent implements OnInit{
   }
 
   getAnime() {
-    this.http.get<Anime[]>("http://localhost:8080/anime/all").subscribe((res: Anime[]) => {
-      this.animeList = res;
-    });
+    // this.http.get<Anime[]>("http://localhost:8080/anime/all").subscribe((res: Anime[]) => {
+    //   this.animeList = res;
+    // });
   }
 
   getBestFive(){
-    this.http.get<Anime[]>("http://localhost:8080/anime/top5").subscribe((res: Anime[]) => {
-      this.BestFive = res;
-    });
+    // this.http.get<Anime[]>("http://localhost:8080/anime/top5").subscribe((res: Anime[]) => {
+    //   this.BestFive = res;
+    // });
   }
 
 
@@ -107,10 +107,10 @@ export class HomeComponent implements OnInit{
     this.AnimeId = animeId;
     if (localStorage.getItem('identification')) {
       const  UserId = parseInt(localStorage.getItem('identification')!);
-      this.http.post(`http://localhost:8080/anime/${animeId}/favorite/${UserId}`,null).subscribe((res)=>{
-        this.getAnime();
-        this.fav_timer();
-      })
+      // this.http.post(`http://localhost:8080/anime/${animeId}/favorite/${UserId}`,null).subscribe((res)=>{
+      //   this.getAnime();
+      //   this.fav_timer();
+      // })
     } else {
       this.router.navigate(['/login'])
     }
@@ -126,10 +126,10 @@ export class HomeComponent implements OnInit{
 
   Broke(animeId: any) {
     const  UserId = parseInt(localStorage.getItem('identification')!);
-    this.http.delete(`http://localhost:8080/anime/${animeId}/favorite/${UserId}`).subscribe((res)=>{
-      this.getAnime();
-      this.no_fav_timer();
-    })
+    // this.http.delete(`http://localhost:8080/anime/${animeId}/favorite/${UserId}`).subscribe((res)=>{
+    //   this.getAnime();
+    //   this.no_fav_timer();
+    // })
   }
 
   isUserFavorited(favoritedBy: Users[]): boolean {

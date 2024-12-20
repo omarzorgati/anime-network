@@ -9,16 +9,19 @@
 
     <div class="body">
       <div class="cat-an">
-        <div class="cat" *ngFor="let cat of Genders;">
+        <div class="cat" *ngFor="let cat of paginatedclient.data;">
           <div class="header">
-            <div class="main-title cp" (click)="navigateToCategory(cat)">
-              <span>{{cat}}</span>
+            <div class="main-title cp">
+              <span>{{cat.name}}</span>
             </div>
           </div>
         </div>
+        <div class="fxRow fxAlignCenterCenter">
+          <p-paginator class="w-100" *ngIf="paginatedclient.pages > 1" (onPageChange)="onClientPageChange($event)"
+                       [rows]="paginatedclient.size" [totalRecords]="paginatedclient.nb_data"></p-paginator>
+        </div>
       </div>
-      <div class="tp-viw">
-      </div>
+
     </div>
   </div>
 </div>

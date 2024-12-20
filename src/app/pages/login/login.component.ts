@@ -1,6 +1,9 @@
 import { Component, HostListener } from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
+import {AuthService} from "../../services/auth.service";
+import {CookieService} from "ngx-cookie-service";
+
 
 @Component({
   selector: 'app-login',
@@ -9,18 +12,13 @@ import {HttpClient} from "@angular/common/http";
 })
 export class LoginComponent {
   showBackToTop: boolean = false;
-
   msg:string = "";
-
   email:string = ""
   password:string = ""
-
   UserId:number = -1;
-
-
   Loading:boolean = false;
 
-  constructor(private route:Router,private http:HttpClient) {
+  constructor(private route:Router,private http:HttpClient,private service:AuthService,private cookieService:CookieService) {
   }
 
 
@@ -51,29 +49,33 @@ export class LoginComponent {
         this.msg = ""
       },2000)
     }else{
-        this.Loading = true
-        setTimeout(()=>{
-          this.CheckCrendials();
-          this.Loading = false;
-          setTimeout(()=>{
-            this.RedirctTo('/home');
-          },2000)
-        },3000)
+      this.CheckCrendials();
     }
 
   }
 
 
   CheckCrendials(){
+    this.Loading = true
     const Data={
       email: this.email,
       password: this.password
     }
-    this.http.post<any>("http://localhost:8080/users/authenticate", Data).subscribe(
+    this.service.SignIn(Data).then(
       (res) => {
-        // this.UserId = res.id;
-        localStorage.setItem('identification',res.id);
-        localStorage.setItem('username',res.username);
+        this.Loading = false
+        const today = new Date()
+        const tomorrow = new Date(today)
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        this.cookieService.set('TOKEN_DASH_ANIME', res.token!, tomorrow, '/');
+        this.cookieService.set('STATE_DASH_ANIME', 'true', tomorrow, '/');
+        this.cookieService.set('ROLE_DASH_ANIME', res.name, tomorrow, '/');
+        if(res.name === 'USER'){
+          this.route.navigate(['/home']);
+        }else{
+          this.route.navigate(['/Admin/Dashboard']);
+        }
+
         this.msg = "You have been logged in successfully";
         this.clear();
         setTimeout(()=>{
@@ -81,7 +83,6 @@ export class LoginComponent {
         },2000)
       },
       (error) => {
-        console.error('Error:', error);
       }
     );
   }
