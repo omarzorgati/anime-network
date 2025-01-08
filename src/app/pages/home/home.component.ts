@@ -6,6 +6,8 @@ import {Anime} from "../../interfaces/anime";
 import {AnimeGallery} from "../../interfaces/anime-gallery";
 import {Users} from "../../interfaces/users";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {AnimeService} from "../../services/anime.service";
+import {GlobalVariables} from "../../global-variables";
 
 
 @Component({
@@ -35,6 +37,8 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   ],
 })
 export class HomeComponent implements OnInit{
+  paginatedclient: any = {size: 20, nb_data: 0, page: -1, data: [], pages: 1}
+  MostLikedAnime: any = {size: 20, nb_data: 0, page: -1, data: [], pages: 1}
 
   animeList: Anime[] = [];
   BestFive: Anime[] = [];
@@ -73,12 +77,12 @@ export class HomeComponent implements OnInit{
 
   currentIndex = 0;
 
-  constructor(private http:HttpClient,private modal:MatDialog,private router:Router) {
+  constructor(private glovar:GlobalVariables,private animeService:AnimeService,private modal:MatDialog,private router:Router) {
   }
 
   ngOnInit() {
-    this.getAnime();
-    this.getBestFive();
+    this.getAnime(0);
+    this.MostLiked(0);
     this.GetUserId();
   }
 
@@ -87,55 +91,50 @@ export class HomeComponent implements OnInit{
     this.UserId = parseInt(localStorage.getItem('identification')!);
   }
 
-  getAnime() {
-    // this.http.get<Anime[]>("http://localhost:8080/anime/all").subscribe((res: Anime[]) => {
-    //   this.animeList = res;
-    // });
+  getAnime(page:any): void {
+    this.animeService.all_anime(
+      this.paginatedclient.size, page,
+      null,  // animeTitle (optional filter)
+      null,  // season (optional filter)
+      null,  // status (optional filter)
+      null,  // animeType (optional filter)
+      []     // categories (optional filter)
+    )
+      .then((res) => {
+        this.paginatedclient.nb_data = res.totalElements
+        this.paginatedclient.page = res.number
+        this.paginatedclient.pages = res.totalPages
+        this.paginatedclient.data = res.content
+      })
+      .catch((error) => {
+        console.error('Error fetching anime:', error);
+      });
   }
 
-  getBestFive(){
-    // this.http.get<Anime[]>("http://localhost:8080/anime/top5").subscribe((res: Anime[]) => {
-    //   this.BestFive = res;
-    // });
+  MostLiked(page:any): void {
+    this.animeService.most_liked(
+      this.MostLikedAnime.size, page
+    )
+      .then((res) => {
+        this.MostLikedAnime.nb_data = res.totalElements
+        this.MostLikedAnime.page = res.number
+        this.MostLikedAnime.pages = res.totalPages
+        this.MostLikedAnime.data = res.content
+      })
+      .catch((error) => {
+        console.error('Error fetching anime:', error);
+      });
+  }
+
+  Like_Anime(id:any){
+    this.animeService.like_anime(id).then((res)=>{
+      this.glovar.showMsg("You have liked this anime")
+    }).catch((err)=>{
+    })
   }
 
 
 
-  Heart(animeId: any) {
-    // this.checkModalStatus(animeId);
-    this.model = true;
-    this.AnimeId = animeId;
-    if (localStorage.getItem('identification')) {
-      const  UserId = parseInt(localStorage.getItem('identification')!);
-      // this.http.post(`http://localhost:8080/anime/${animeId}/favorite/${UserId}`,null).subscribe((res)=>{
-      //   this.getAnime();
-      //   this.fav_timer();
-      // })
-    } else {
-      this.router.navigate(['/login'])
-    }
-  }
-
-  // checkModalStatus(animeId: any){
-  //     this.http.get<boolean>(`http://localhost:8080/anime/${animeId}/modal-status/${this.UserId}`).subscribe((status) => {
-  //         if (!status) {
-  //             this.model = true;
-  //         }
-  //     });
-  // }
-
-  Broke(animeId: any) {
-    const  UserId = parseInt(localStorage.getItem('identification')!);
-    // this.http.delete(`http://localhost:8080/anime/${animeId}/favorite/${UserId}`).subscribe((res)=>{
-    //   this.getAnime();
-    //   this.no_fav_timer();
-    // })
-  }
-
-  isUserFavorited(favoritedBy: Users[]): boolean {
-    // @ts-ignore
-    return favoritedBy.some(user => user.id === this.UserId);
-  }
 
   showPrev() {
     this.currentIndex = (this.currentIndex - 1 + this.Gallery.length) % this.Gallery.length;
@@ -143,20 +142,6 @@ export class HomeComponent implements OnInit{
 
   showNext() {
     this.currentIndex = (this.currentIndex + 1) % this.Gallery.length;
-  }
-
-  fav_timer(){
-    this.added_to_fav = true
-    setTimeout(()=>{
-      this.added_to_fav = false;
-    },2000)
-  }
-
-  no_fav_timer(){
-    this.removed_from_fav = true
-    setTimeout(()=>{
-      this.removed_from_fav = false;
-    },2000)
   }
 
   AnimeDetails(id:number){
@@ -169,22 +154,4 @@ export class HomeComponent implements OnInit{
     this.model = false;
     this.AnimeId = -1;
   }
-
-    SaveStatus(animeId: any) {
-        if (this.Selected_Status !== "" && this.Selected_Status !== "Select a status") {
-            const Data = {
-                animeId: animeId,
-                userId: this.UserId,
-                status: this.Selected_Status,
-            };
-
-            this.http.post("http://localhost:8080/Status/add", Data).subscribe((res) => {
-                // Handle the response if needed
-            });
-
-            this.model = false;
-        } else {
-            console.log("Error");
-        }
-    }
 }

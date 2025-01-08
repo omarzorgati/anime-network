@@ -17,9 +17,21 @@ export class NewAnimeComponent {
   type: string = 'TV';
   releaseDate: string = '';
   status: string = 'AIRING';
-  categoryNames: string = '';
+  categoryNames: string = 'Select';
+  paginatedclient: any = {size: 100, nb_data: 0, page: -1, data: [], pages: 1}
+  constructor(private user_service: CatService,private service: AnimeService, private dialogRef: MatDialogRef<NewAnimeComponent>) {
+    this.get_all(0)
+  }
 
-  constructor(private service: AnimeService, private dialogRef: MatDialogRef<NewAnimeComponent>) {}
+  get_all(page: any) {
+    this.user_service.all_cat(this.paginatedclient.size, page).then((res) => {
+      this.paginatedclient.nb_data = res.totalElements
+      this.paginatedclient.page = res.number
+      this.paginatedclient.pages = res.totalPages
+      this.paginatedclient.data = res.content
+    }).finally(() => {
+    })
+  }
 
   Add() {
     const data = {

@@ -27,7 +27,7 @@
         <option>Wish List</option>
         <option>Watching</option>
       </select>
-      <button class="cp" (click)="SaveStatus(AnimeId)">Save</button>
+<!--      <button class="cp" (click)="SaveStatus(AnimeId)">Save</button>-->
       <button class="cp" (click)="CloseModel()">Cancel</button>
     </div>
 
@@ -81,21 +81,14 @@
           </div>
         </div>
         <div class="body">
-          <div class="card" *ngFor="let anime of animeList">
-            <div class="heart To-Fav cp" (click)="Heart(anime.id)" *ngIf="!isUserFavorited(anime.favoritedBy)">
+          <div class="card" *ngFor="let anime of paginatedclient.data">
+            <div class="heart To-Fav cp" (click)="Like_Anime(anime.id)">
               <i class="fa fa-heart"></i>
             </div>
-            <div class="heart OFF-Fav cp" (click)="Broke(anime.id)" *ngIf="isUserFavorited(anime.favoritedBy)">
-              <i class="fa fa-heart-crack"></i>
-            </div>
             <div class="rating">
-              <span>{{anime.ratings.length}}</span>
+              <span>{{anime.likes}}</span>
             </div>
-            <div class="comments">
-              <i class="fa fa-comment"></i>
-              <span>{{anime.comments.length}}</span>
-            </div>
-            <img class="cp" [src]="anime.image" (click)="AnimeDetails(anime.id)" alt="Photo">
+            <img class="cp" [src]="anime.images?anime.images:'https://wallpapersmug.com/download/1024x768/a48e14/solo-leveling-anime-minimal.jpg'" (click)="AnimeDetails(anime.id)" alt="Photo">
             <div class="card-description">
               <div class="information">
                 <div class="info">
@@ -106,7 +99,7 @@
                 </div>
               </div>
               <div class="title">
-                {{anime.name}}
+                {{anime.title}}
               </div>
             </div>
           </div>
@@ -123,16 +116,16 @@
           </div>
         </div>
         <div class="body">
-          <div class="card" *ngFor="let anime of BestFive |  slice:0:4">
+          <div class="card" *ngFor="let anime of MostLikedAnime.data">
             <div class="title-container">
             </div>
             <div class="title">
-              <span>{{anime.name}}</span>
+              <span>{{anime.title}}</span>
             </div>
             <div class="view">
               <span><i class="fa fa-eye" style="padding-right: 0.5rem"></i> {{anime.opened}}</span>
             </div>
-            <img [src]="anime.image">
+            <img [src]="anime.images?anime.images:'https://wallpapersmug.com/download/1024x768/a48e14/solo-leveling-anime-minimal.jpg'" alt="">
           </div>
         </div>
       </div>

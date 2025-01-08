@@ -384,9 +384,10 @@
             height: 15rem;
             background: #e83531;
            margin-bottom: 2rem;
+            position: relative;
             .title-container{
               position: absolute;
-              width: 27rem;
+              width: 100%;
               background: #0b0c2b;
               height: 6rem;
               opacity: 0.4;

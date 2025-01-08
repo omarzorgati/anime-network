@@ -28,7 +28,12 @@
         <option value="FINISHED">Finished</option>
         <option value="UPCOMING">Upcoming</option>
       </select>
-      <input type="text" [(ngModel)]="categoryNames" placeholder="Enter Categories (comma-separated)">
+
+      <select [(ngModel)]="categoryNames">
+        <option [value]="'Select'">Select a categories</option>
+        <option *ngFor="let user of paginatedclient.data" [value]="user.name">{{user.name}}</option>
+      </select>
+<!--      <input type="text" [(ngModel)]="categoryNames" placeholder="Enter Categories (comma-separated)">-->
     </div>
   </div>
   <div class="w-100 gapping fxColumn">
